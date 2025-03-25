@@ -14,7 +14,7 @@ from typing import Literal
 
 with st.sidebar:
     st.header("GROQ API")
-    api=st.text_input()
+    api=st.text_input("Enter your Groq API key")
 os.environ["GROQ_API_KEY"] = api
 
 llm = ChatGroq(model="gemma2-9b-it")
