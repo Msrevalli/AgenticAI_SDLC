@@ -97,13 +97,7 @@ def product_owner_review(state: State):
 
                     Respond in the following format:
                     - Status: Approved / Not Approved
-                    - Feedback: [Comprehensive evaluation with:
-                                    * Specific structural recommendations
-                                    * Precise value proposition insights
-                                    * Actionable improvement suggestions
-                                    * Strategic implementation guidance]
-
-                                    Confidence Level: [Low/Medium/High]
+                    - Feedback: [Detailed evaluation with specific recommendations for improvement]
                     """,
                         input_variables=["user_stories"]
                     )
@@ -202,7 +196,7 @@ def design_review(state: State):
     with st.container():
         st.write("🔄 Design Review in Progress...")
         review_prompt = PromptTemplate(
-           template="""You are a Technical person reviewing functional and technical design documents.
+           template="""You are a senior technical architect reviewing functional and technical design documents.
             Below is the design documentation:
             {design_docs}
                    
@@ -232,7 +226,7 @@ def revise_design_docs(state: State):
     with st.container():
         st.write("🔄 Revising Design Documents...")
         revision_prompt = PromptTemplate(
-            template="""You are a Techinical person correcting docs based on feedback.
+            template="""You are a senior technical architect correcting docs based on feedback.
             The following feedback was provided after deisgn review:
 
            {design_review_feedback}
@@ -264,25 +258,88 @@ def generate_code(state: State):
     with st.container():
         st.write("🔄 Generating Code...")
         code_prompt = PromptTemplate(
-        template="""You are an expert software developer with deep knowledge of modern programming practices, patterns, and best practices.
+        template="""You are a distinguished software architect with 20+ years of experience, specializing in translating complex design documents into production-grade, enterprise-level software solutions.
 
-        Task: Generate production-ready, fully functional code based on the provided design documents:
+Code Generation Principles:
+1. Architectural Excellence
+- Transform design documents into modular, scalable architecture
+- Implement industry-standard design patterns
+- Ensure high cohesion and low coupling
+- Create extensible, maintainable code structure
 
-        {design_documents}
+2. Technical Implementation Strategy
+- Select optimal programming language and framework
+- Leverage modern software engineering practices
+- Implement robust, production-ready solutions
+- Balance performance, readability, and maintainability
 
-        Your code should:
-        1. Follow clean code principles (readability, maintainability, SOLID principles)
-        2. Include proper error handling and edge cases
-        3. Be secure against common vulnerabilities
-        4. Be optimized for performance where appropriate
-        5. Include comments for complex logic
-        6. Follow standard naming conventions and code organization
-        7. Be modular and well-structured
-        8. Include all necessary imports and dependencies
+3. Comprehensive Implementation Approach
+- Full-featured, end-to-end functionality
+- Rigorous error handling and validation
+- Advanced security considerations
+- Performance optimization techniques
+- Comprehensive logging and monitoring
 
-        Choose the most appropriate language and framework based on the requirements. Implement all functionality described in the design documents, ensuring that business logic is correctly reflected in the code.
+4. Code Quality Dimensions
+- SOLID principles adherence
+- Clean code methodology
+- Defensive programming techniques
+- Comprehensive exception management
+- Configuration-driven design
+- Dependency injection
+- Separation of concerns
 
-        Return only the code with proper indentation, no explanations.
+5. Non-Functional Requirements
+- Horizontal scalability
+- Microservices compatibility
+- Cloud-native architecture support
+- Cross-platform compatibility
+- Performance benchmarking considerations
+
+6. Advanced Technical Constraints
+- Use latest language features
+- Implement design patterns strategically
+- Create abstraction layers
+- Minimize computational complexity
+- Ensure type safety
+- Implement graceful degradation
+
+7. Documentation and Maintainability
+- Comprehensive inline documentation
+- Clear, descriptive variable and method names
+- Consistent code formatting
+- Explicit type annotations
+- Modular code organization
+
+Mandatory Code Generation Criteria:
+- 100% alignment with design documents
+- Zero compromise on code quality
+- Explicit error handling
+- Secure by design
+- Performance optimized
+- Fully commented complex logic sections
+- Dependency management
+- Configuration externalization
+- Environment-aware implementations
+
+Architectural Priorities:
+- Modularity
+- Extensibility
+- Scalability
+- Reliability
+- Security
+
+Implementation Methodology:
+- Bottom-up design approach
+- Test-driven development considerations
+- Continuous integration readiness
+- DevOps friendly structure
+
+Code Generation Scope:
+- Complete implementation
+- All required modules
+- Fully functional components
+- Ready for immediate deployment
         """,
             input_variables={"design_documents"}
         )
