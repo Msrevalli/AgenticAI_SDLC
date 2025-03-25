@@ -11,10 +11,6 @@ from pydantic import BaseModel,Field
 from typing import Dict, List
 from typing import Literal
 
-
-
-llm = ChatGroq(model="gemma2-9b-it")
-
 class State(TypedDict):
     user_requirements: str
     user_stories: List[str]
@@ -619,6 +615,7 @@ with st.sidebar:
     st.header("GROQ API")
     api=st.text_input("Enter your Groq API key", type="password")
 os.environ["GROQ_API_KEY"] = api
+llm = ChatGroq(model="gemma2-9b-it")
 
 st.title("📌 AI-Powered Software Development Workflow")
 st.write("This app allows you to define requirements, generate user stories, and automate the entire development process.")
