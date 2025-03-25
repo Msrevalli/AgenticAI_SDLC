@@ -340,6 +340,8 @@ Code Generation Scope:
 - All required modules
 - Fully functional components
 - Ready for immediate deployment
+
+generate code for {design_documents}
         """,
             input_variables={"design_documents"}
         )
