@@ -691,10 +691,7 @@ with tabs_dict["Overview"]:
         
         graph = graph_builder.compile()
        
-        
-        with st.status("Executing workflow...", expanded=True) as status:
-            st.write("Starting software development workflow")
-            with st.sidebar:
+        with st.sidebar:
                 st.header("GROQ API")
                 api=st.text_input("Enter your Groq API key", type="password")
                 st.subheader("Workflow Diagram")
@@ -710,8 +707,11 @@ with tabs_dict["Overview"]:
                             st.image(image_path, caption="Workflow Execution")
                 else:
                             st.info("Enter requirements and start the workflow to see the process diagram")
-            os.environ["GROQ_API_KEY"] = api
-            llm = ChatGroq(model="gemma2-9b-it")
+        os.environ["GROQ_API_KEY"] = api
+        llm = ChatGroq(model="gemma2-9b-it")
+        with st.status("Executing workflow...", expanded=True) as status:
+            st.write("Starting software development workflow")
+           
             final_state = graph.invoke(initial_state)
             status.update(label="Workflow completed!", state="complete", expanded=False)
             
