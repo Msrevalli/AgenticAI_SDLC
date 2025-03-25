@@ -12,12 +12,6 @@ from typing import Dict, List
 from typing import Literal
 
 
-with st.sidebar:
-    st.header("GROQ API")
-    api=st.text_input("Enter your Groq API key")
-os.environ["GROQ_API_KEY"] = api
-
-llm = ChatGroq(model="gemma2-9b-it")
 
 class State(TypedDict):
     user_requirements: str
@@ -620,6 +614,12 @@ def fix_code_after_QA_feedback(state):
 # Streamlit UI setup
 st.set_page_config(page_title="Software Development Workflow", layout="wide")
 
+with st.sidebar:
+    st.header("GROQ API")
+    api=st.text_input("Enter your Groq API key")
+os.environ["GROQ_API_KEY"] = api
+
+llm = ChatGroq(model="gemma2-9b-it")
 st.title("📌 AI-Powered Software Development Workflow")
 st.write("This app allows you to define requirements, generate user stories, and automate the entire development process.")
 
