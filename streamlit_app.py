@@ -642,6 +642,14 @@ with tabs_dict["Overview"]:
     """)
     
     requirements=st.text_area("Enter Requirements:", "", height=150)
+    with st.sidebar:
+                st.header("GROQ API")
+                api=st.text_input("Enter your Groq API key", type="password")
+                st.subheader("Workflow Diagram")
+                st.image("workflow_diagram.png", caption="Workflow Execution")
+                
+    os.environ["GROQ_API_KEY"] = api
+    llm = ChatGroq(model="gemma2-9b-it")
     
     # Display the start button in the Overview tab
     if st.button("Start Workflow"):
@@ -691,24 +699,7 @@ with tabs_dict["Overview"]:
         
         graph = graph_builder.compile()
        
-        with st.sidebar:
-                st.header("GROQ API")
-                api=st.text_input("Enter your Groq API key", type="password")
-                st.subheader("Workflow Diagram")
-                    
-                        # Only generate and show the diagram if the app has been initialized
-                if 'graph' in locals():
-                            mermaid_diagram = graph.get_graph().draw_mermaid_png()
-                            
-                            image_path = "workflow_diagram.png"
-                            with open(image_path, "wb") as f:
-                                f.write(mermaid_diagram)
-                            
-                            st.image(image_path, caption="Workflow Execution")
-                else:
-                            st.info("Enter requirements and start the workflow to see the process diagram")
-        os.environ["GROQ_API_KEY"] = api
-        llm = ChatGroq(model="gemma2-9b-it")
+        
         with st.status("Executing workflow...", expanded=True) as status:
             st.write("Starting software development workflow")
            
