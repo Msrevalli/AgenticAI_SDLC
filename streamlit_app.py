@@ -446,7 +446,7 @@ def write_test_cases(state: State):
             - **Test Steps:** <Step-by-step execution>
             - **Expected Result:** <Expected output>
 
-            Return **only the test cases**, no explanations.""",
+           """,
             input_variables={"generated_code", "functional_design", "technical_design"}
         )
 
