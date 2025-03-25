@@ -725,7 +725,3 @@ with tabs_dict["Overview"]:
                 st.write("3. ✅ Code generated, reviewed, and secured")
                 st.write("4. ✅ Test Cases created and validated")
                 st.write("5. ✅ QA Testing completed")
-
-# Sidebar setup
-with st.sidebar:
-   
