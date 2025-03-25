@@ -273,7 +273,7 @@ def generate_code(state: State):
         6. Follow standard naming conventions and code organization
         7. Be modular and well-structured
         8. Include all necessary imports and dependencies
-        9.Give me modular code
+       
 
         Choose the most appropriate language and framework based on the requirements. Implement all functionality described in the design documents, ensuring that business logic is correctly reflected in the code.
 
