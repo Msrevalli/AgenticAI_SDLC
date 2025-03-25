@@ -695,6 +695,19 @@ with tabs_dict["Overview"]:
         graph_builder.add_edge("Fix Code After QA Feedback", "Code Review")
         
         graph = graph_builder.compile()
+        st.subheader("Workflow Diagram")
+    
+        # Only generate and show the diagram if the app has been initialized
+        if 'graph' in locals():
+            mermaid_diagram = graph.get_graph().draw_mermaid_png()
+            
+            image_path = "workflow_diagram.png"
+            with open(image_path, "wb") as f:
+                f.write(mermaid_diagram)
+            
+            st.image(image_path, caption="Workflow Execution")
+        else:
+            st.info("Enter requirements and start the workflow to see the process diagram")
         
         with st.status("Executing workflow...", expanded=True) as status:
             st.write("Starting software development workflow")
@@ -715,16 +728,4 @@ with tabs_dict["Overview"]:
 
 # Sidebar setup
 with st.sidebar:
-    st.subheader("Workflow Diagram")
-    
-    # Only generate and show the diagram if the app has been initialized
-    if 'graph' in locals():
-        mermaid_diagram = graph.get_graph().draw_mermaid_png()
-        
-        image_path = "workflow_diagram.png"
-        with open(image_path, "wb") as f:
-            f.write(mermaid_diagram)
-        
-        st.image(image_path, caption="Workflow Execution")
-    else:
-        st.info("Enter requirements and start the workflow to see the process diagram")
+   
