@@ -2,6 +2,7 @@ import os
 import streamlit as st
 from typing_extensions import TypedDict
 from typing import Dict, List
+from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langgraph.graph import StateGraph, START, END
 from langchain.prompts import PromptTemplate
@@ -9,6 +10,8 @@ from langchain_core.output_parsers import StrOutputParser
 from pydantic import BaseModel,Field
 from typing import Dict, List
 from typing import Literal
+
+
 
 llm = ChatGroq(model="gemma2-9b-it")
 
@@ -98,7 +101,7 @@ def product_owner_review(state: State):
 
                     Respond in the following format:
                     - Status: Approved / Not Approved
-                    - Feedback
+                    - Feedback: [Detailed evaluation with specific recommendations for improvement]
                     """,
                         input_variables=["user_stories"]
                     )
@@ -203,7 +206,7 @@ def design_review(state: State):
                    
             Respond in the following format:
             - Status: Approved / Not Approved
-            - Feedback
+            - Feedback: Provide feedback on Design Docs
 
             """,
             input_variables=["design_docs"]
