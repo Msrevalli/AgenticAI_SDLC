@@ -472,19 +472,15 @@ def test_case_review(state):
     with st.container():
         st.write("🔄 Test Case Review in Progress...")
         prompt = PromptTemplate(
-            template="""You are a senior test strategy expert reviewing the following test cases and execute code with test cases and provide test results :
+            template="""You are a senior test strategy expert reviewing the following test cases:
 
             **testcases:**
             {testcases}
 
-            **code:**
-            {code}
-
-
             Provide structured feedback
             Format:
             - Status: Approved / Needs Fixes
-            - feedback: (Provide results for each testcase)
+            - Feedback: (Explain improvements)
             
             """,
             input_variables={"testcases"}
