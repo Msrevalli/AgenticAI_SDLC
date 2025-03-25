@@ -616,7 +616,7 @@ st.set_page_config(page_title="Software Development Workflow", layout="wide")
 
 with st.sidebar:
     st.header("GROQ API")
-    api=st.text_input("Enter your Groq API key")
+    api=st.text_input("Enter your Groq API key", type="password")
 os.environ["GROQ_API_KEY"] = api
 
 llm = ChatGroq(model="gemma2-9b-it")
