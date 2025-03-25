@@ -52,22 +52,27 @@ def auto_generate_user_stories(state: State):
     with st.container():
         st.write("🔄 Generating User Stories...")
         userstories_prompt = PromptTemplate(
-        template="""You are an expert agile product manager with expertise in user story creation.
+        template="""You are an expert agile product manager specializing in crafting precise, value-driven user stories.
 
-                    Task: Based on the following requirement: "{user_requirements}", generate exactly 5 well-structured user stories.
+                    Requirement: "{user_requirements}"
 
-                    Each user story must:
-                    - Follow the format: As a <specific user type>, I want to <specific action/feature> so that <clear benefit>
-                    - Be concise yet descriptive
-                    - Focus on user value, not implementation details
-                    - Be testable with clear acceptance criteria
-                    - Be independent of each other (no dependencies between stories)
-                    - Cover different aspects of the application functionality
+                    Critical Instructions:
+                    - Generate EXACTLY 5 user stories
+                    - Each story MUST:
+                    * Follow format: As a <specific user type>, I want to <precise action/feature> so that <clear, tangible benefit>
+                    * Demonstrate clear, measurable user value
+                    * Avoid technical implementation details
+                    * Be independently implementable
+                    * Cover distinctly different application aspects
 
-                    Your user stories should address the core functionality described in the requirements while considering different user perspectives.
+                    Constraints:
+                    - Maintain concise yet descriptive clarity
+                    - Ensure stories are testable
+                    - Represent diverse user perspectives
+                    - No implicit dependencies between stories
                     """,
                     input_variables=["user_requirements"]
-                    )
+                )
 
         userstory_chain = userstories_prompt | llm.with_structured_output(UserStories)
         response = userstory_chain.invoke({"user_requirements": state["user_requirements"]})
@@ -84,22 +89,26 @@ def product_owner_review(state: State):
     with st.container():
         st.write("🔄 Product Owner Review in Progress...")
         review_prompt = PromptTemplate(
-        template="""You are a senior product owner with 10+ years of experience reviewing user stories.
-
-                    Task: Review the following user stories based on INVEST criteria (Independent, Negotiable, Valuable, Estimable, Small, Testable):
-
+        template="""You are a senior product owner with 10+ years of experience in user story refinement.
+                    Evaluate these user stories against the INVEST framework:
                     {user_stories}
 
-                    Provide a comprehensive evaluation addressing:
-                    1. Clarity and structure of each story
-                    2. Whether each story provides clear user value
-                    3. Whether stories collectively cover the main functionality needed
-                    4. Whether acceptance criteria are implied or need clarification
-                    5. Suggestions for improvements where needed
+                    Comprehensive Review Requirements:
+                    1. Assess story independence
+                    2. Validate negotiability
+                    3. Confirm user/business value
+                    4. Check estimability
+                    5. Verify story size appropriateness
+                    6. Ensure testability
 
-                    Respond in the following format:
-                    - Status: Approved / Not Approved
-                    - Feedback: [Detailed evaluation with specific recommendations for improvement]
+                    Detailed Evaluation:
+                    - Analyze collective functionality coverage
+                    - Identify improvement opportunities
+                    - Determine development readiness
+
+                    Response Format:
+                    - Status: Approved/Not Approved
+                    - Feedback: Specific, constructive recommendations
                     """,
                         input_variables=["user_stories"]
                     )
@@ -163,14 +172,32 @@ def create_design_documents(state: State):
         st.write("🔄 Creating Design Documents...")
         # Functional Design Prompt
         prompt = PromptTemplate(
-        template="""You are a senior software architect with expertise in both functional and technical specifications.
-    
-        Task: Based on the provided user stories, create comprehensive design documents that will guide the implementation.
+        template="""You are a distinguished software architect translating user stories into precise design documentation.
 
-        User Stories:
-        {user_stories}
+    User Stories:
+    {user_stories}
 
-        Provide comprehensive but clear and concise documentation that would enable a developer to build the system without further clarification.
+    Design Documentation Objectives:
+    1. Create a definitive implementation blueprint
+    2. Provide clear, actionable documentation
+    3. Enable development with minimal clarification
+
+    Functional Design Requirements:
+    - Articulate user-facing behaviors
+    - Define system interactions
+    - Specify business logic
+    - Outline user experience expectations
+
+    Technical Design Requirements:
+    - Recommend appropriate technologies
+    - Define system architecture
+    - Specify technical constraints
+    - Outline data models
+    - Identify scalability points
+
+    Deliverables:
+    - Functional documents: System behavior narratives
+    - Technical documents: Architectural specifications
         """,
             input_variables=["user_stories"]
         )
@@ -260,25 +287,29 @@ def generate_code(state: State):
     with st.container():
         st.write("🔄 Generating Code...")
         code_prompt = PromptTemplate(
-        template="""You are an expert software developer with deep knowledge of modern programming practices, patterns, and best practices.
+        template="""You are a senior software engineer creating production-ready code.
 
-        Task: Generate production-ready, fully functional code based on the provided design documents:
+    Design Documents:
+    {design_documents}
 
-        {design_documents}
+    Code Generation Imperatives:
+    1. Implement clean, maintainable, scalable code
+    2. Adhere to SOLID principles
+    3. Follow industry best practices
+    4. Optimize for performance and readability
 
-        Your code should:
-        1. Follow clean code principles (readability, maintainability, SOLID principles)
-        2. Include proper error handling and edge cases
-        3. Be secure against common vulnerabilities
-        4. Be optimized for performance where appropriate
-        5. Include comments for complex logic
-        6. Follow standard naming conventions and code organization
-        7. Be modular and well-structured
-        8. Include all necessary imports and dependencies
+    Implementation Requirements:
+    - Complete functional coverage
+    - Robust error handling
+    - Comprehensive security considerations
+    - Efficient algorithmic approaches
+    - Clear, self-documenting code
 
-        Choose the most appropriate language and framework based on the requirements. Implement all functionality described in the design documents, ensuring that business logic is correctly reflected in the code.
-
-        Return only the code with proper indentation, no explanations.
+    Delivery Constraints:
+    - Use most appropriate language/framework
+    - Provide complete, runnable code
+    - Include necessary dependencies
+    - Ensure production-readiness
         """,
             input_variables={"design_documents"}
         )
@@ -426,26 +457,30 @@ def write_test_cases(state: State):
     with st.container():
         st.write("🔄 Writing Test Cases...")
         test_case_prompt = PromptTemplate(
-            template="""You are a senior QA engineer with expertise in comprehensive test coverage and test-driven development.
+            template="""You are a senior QA engineer creating a comprehensive test suite.
 
-            Task: Create a comprehensive test suite for the following code and design specifications:
+    Code and Design Context:
+    {generated_code}
+    {functional_design}
+    {technical_design}
 
-            **Code:**
-            {generated_code}
+    Test Coverage Objectives:
+    1. Create exhaustive test cases
+    2. Validate functional requirements
+    3. Ensure maximum code path coverage
 
-            **Functional Design Document:**
-            {functional_design}
+    Test Case Categories:
+    - Unit Tests
+    - Integration Tests
+    - Functional Tests
+    - Edge Case Tests
+    - Performance Tests
 
-            **Technical Design Document:**
-            {technical_design}
-
-            Generate a structured list of **unit tests, integration tests, and edge cases**.
-            Use the following format:
-
-            - **Test Case Name:** <Descriptive Name>
-            - **Description:** <What the test validates>
-            - **Test Steps:** <Step-by-step execution>
-            - **Expected Result:** <Expected output>
+    Deliverable Requirements:
+    - Minimum 15-20 comprehensive test cases
+    - Cover 80%+ code paths
+    - Diverse testing scenarios
+    - Detailed test case format
 
             Return **only the test cases**, no explanations.""",
             input_variables={"generated_code", "functional_design", "technical_design"}
