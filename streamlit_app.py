@@ -97,7 +97,13 @@ def product_owner_review(state: State):
 
                     Respond in the following format:
                     - Status: Approved / Not Approved
-                    - Feedback: [Detailed evaluation with specific recommendations for improvement]
+                    - Feedback: [Comprehensive evaluation with:
+                                    * Specific structural recommendations
+                                    * Precise value proposition insights
+                                    * Actionable improvement suggestions
+                                    * Strategic implementation guidance]
+
+                                    Confidence Level: [Low/Medium/High]
                     """,
                         input_variables=["user_stories"]
                     )
